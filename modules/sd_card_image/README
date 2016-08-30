@@ -1,0 +1,33 @@
+This module creates ext4 SD card images from the build output. These
+images contain partition tables and 2 partitions.
+
+These images are in the "ZD" format, suitable for flashing via OpenFirmware's
+fs-update command. Corresponding .zsp files are produced too. To disable
+.zd/.zsp creation, set the make_zd option to 0 (default is 1).
+
+A single disk image is produced, with it's size automatically
+calculated based on the size of the data included in the image, plus a small
+amount of free space. The system will resize the partition and filesystem to
+fill the media during first boot. Therefore, other than loading the module,
+no configuration is usually necessary.
+
+A "keep_disk_image" option is available, which can be used to retain the
+raw disk image file (basically a file that looks like a block device) that was
+used to produce the ZD image, which you could flash with Linux using the "dd"
+command.
+
+For example:
+
+[sd_card_image]
+keep_disk_image=1
+
+The output files will be:
+
+	osXX.zd
+	osXX.zsp
+	osXX.zd.disk.img.tar.gz
+
+The raw image file is archived in tar (in sparse mode) and then compressed with
+gzip. Tar preserves the sparseness of the file (the fact that some part of the
+image is made up of unallocated disk blocks). To disable this
+archiving/compression, set the compress_disk_image option to 0 (default is 1).

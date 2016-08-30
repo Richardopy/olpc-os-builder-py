@@ -1,0 +1,28 @@
+This module allows customization of the OLPC boot animation.
+There are two modes of customization available.
+
+Firstly, you can add your own PNG image to the boot animation display. It
+will be displayed at the bottom of the screen, center-aligned. Simply specify
+the path to the file in the following manner:
+
+[bootanim]
+custom_image=/path/to/custom/image
+
+
+
+Alternatively, if you wish to perform deeper customizations, you can include
+your own plymouth theme and use it instead of the OLPC default. Plymouth is the
+platform which the boot animation is built upon. It allows creation of boot
+themes through a simple scripting language.
+See the Plymouth theming guide (http://brej.org/blog/?p=158) for how to get
+started.
+
+If going down this route, you will first need to get your theme included
+in the build image. You could package it in RPM format and use the
+custom_packages module to include it.
+
+Then, simply specify the name of the theme in the configuration of this
+module:
+
+[bootanim]
+theme=mytheme

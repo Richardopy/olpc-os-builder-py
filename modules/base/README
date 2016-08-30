@@ -1,0 +1,68 @@
+This module implements the core functionality of olpc-os-builder.
+You don't want to exclude it.
+
+[base] options:
+
+- versioned_fs (default 1)
+Set to 0 to disable the "upgradeable" /versions-based filesystem layout.
+Note that Quanta are unable to install software images on the production
+line unless they have use the versioned layout. Disabling this option is
+not recommended.
+
+- prepopulate_run (default 1)
+Only applicable when building a versioned filesystem layout.
+This will cause the /versions/run tree to be populate with a link-farm
+from the image in /versions/pristine. This will be done at first-boot time
+otherwise, but given that it takes a minute or more, it is a fair improvement
+to do it at build time.
+
+- make_iso (default 0)
+Set to 1 to enable generation of a .iso file in the output directory.
+This .iso may or may not function on a regular system as a LiveCD.
+dm-snapshot support is required on the build system (both the userspace
+utilities and kernel level support).
+
+- compress_iso (default 1)
+Set to 0 to disable squashfs compression of the filesystem on the .iso LiveCD.
+This will increase the speed of the build, but the resultant .iso will be
+about 3 times as big.
+
+- make_tree_tarball (default 1)
+Set to 0 to disable the generation of the LZMA-compressed filesystem tree
+tarball
+
+- python_optimize (default 2)
+When 0, pyc files will be generated for all Python code in the OS build.
+When set to 1, basic optimizations will be enabled, and pyo files will be
+generated instead of pyc.
+When set to 2, the effects will be the same as 1 except docstrings will
+be discarded when generating pyc files.
+
+- timezone (default GMT)
+Set the default timezone for the build. This can be later overridden by the
+user in the Sugar control panel. The value should be an entry from
+/usr/share/zoneinfo e.g. America/Managua
+
+- default_language (default unset)
+Override the default language used in the build. Normally, the language
+is automatically detected from the manufacturing data of the laptop on first
+boot. Only set this if you know of a good reason that you want to override
+the factory-programmed default.
+
+- default_kbd_model (default unset)
+Override the default XKB keyboard model used in the build. Normally, keyboard
+settings are automatically detected from the manufacturing data of the laptop
+on first boot. Only set this if you know of a good reason that you want to
+override the factory-programmed default.
+
+- default_kbd_layout (default unset)
+Override the default XKB keyboard layout used in the build. Normally, keyboard
+settings are automatically detected from the manufacturing data of the laptop
+on first boot. Only set this if you know of a good reason that you want to
+override the factory-programmed default.
+
+- default_kbd_variant (default unset)
+Override the default XKB keyboard variant used in the build. Normally, keyboard
+settings are automatically detected from the manufacturing data of the laptop
+on first boot. Only set this if you know of a good reason that you want to
+override the factory-programmed default.
